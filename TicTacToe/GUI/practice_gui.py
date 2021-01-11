@@ -7,4 +7,4 @@ win = tk.Tk()
 win.title("TicTacToe")
 
 #Will keep the window displayed till it is exited out
-win.mainloop()s
+win.mainloop()
