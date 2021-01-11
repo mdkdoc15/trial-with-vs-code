@@ -1,32 +1,42 @@
+#Two player game finished
 
-
-#Things we need to complete
-
-    # Draw board
-    # play game
-    # check win
-    # Check tie
-    # Flip board
-
+import os #used to clear screen
 
 board = ['-','-','-',
         '-','-','-',
         '-','-','-'] #empty game baord
 
 def display_board():
-    #find cleaner way to write
-    #gui
-    #impliment horozontal bars
+    os.system('clear')#used to clear the screen when drawing a new board
     print(board[0] + ' | ' + board[1] + ' | ' + board[2])
     print(board[3] + ' | ' + board[4] + ' | ' + board[5])
     print(board[6] + ' | ' + board[7] + ' | ' + board[8])
 
+def isValidMove(pos):
+    try:
+        if (int(pos) > 9 or int(pos) < 1):
+            print("Number not allowed (Too Big/Small)")
+            return False
+        elif (board[int(pos)-1] != '-'):
+            print("Space already taken, try again!")
+            return False
+        else:
+            return True
+    except:
+        print("Invalid input! Try again!")
+
 def handle_turn(player):
-    position = input("Choose a position from 1-9: ")
-    if(player):
-        board[int(position) - 1] = 'X'
-    else:
-        board[int(position) -1 ] = 'O'
+    while True:
+        position = input("Choose a position from 1-9: ")
+        if(player): #Will alternate players based on the state of the boolean 'player'
+            if(isValidMove(position)):
+                board[int(position)-1] = 'X'
+                break
+        else:
+            if(isValidMove(position)):
+                board[int(position)-1] = 'O'
+                break
+
     
 def check_col():
     #find better way to do this
@@ -88,11 +98,10 @@ def play_game():
     game_over = False
     player = True #true players are X, false are O's
     while(not game_over):
-        display_board()
+        display_board() #print the board at the start of each turn
         handle_turn(player)
-        player = not player #move to next persons turn
-        game_over = check_win()
-
+        player = not player # move to next persons turn
+        game_over = check_win() #determines if we need to exit the loop
 
 
 
